@@ -1,0 +1,7 @@
+services:
+  dashboard:
+    image: jchaipas/dashboardtvfsd
+    ports:
+      - 3000:3000
+    volumes:
+      - ./env_file:/app/.env

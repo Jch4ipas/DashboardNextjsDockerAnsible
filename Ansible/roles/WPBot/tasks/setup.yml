@@ -1,0 +1,73 @@
+- include_vars: vars.yml
+  tags:
+    - alway
+
+- name: Say hello
+  debug:
+    msg: "Hello there I'm working"
+  tags: sayHello
+
+- name: Télécharger Docker et Docker Compose
+  apt:
+    name:
+      - docker.io
+      - docker-compose
+    state: present
+    update_cache: yes
+
+- name: Start Docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: crée dossier de configuration de prometheus
+  file:
+    path: /opt/prometheus
+    state: directory
+
+- name: crée le fichier de configuraiton pour prometheus
+      copy:
+        dest: /opt/prometheus/prometheus.yml
+        content: |
+          global:
+            scrape_interval: 15s
+
+          scrape_configs:
+            - job_name: 'prometheus'
+              static_configs:
+                - targets: ['localhost:9090']
+
+            - job_name: 'node_exporter'
+              static_configs:
+                - targets: ['node_exporter:9100']
+
+- name: Création fichier docker compose
+  copy:
+    dest: /opt/docker-compose.yml
+    content: |
+      version: '3.7'
+      services:
+        prometheus:
+          image: prom/prometheus
+          container_name: prometheus
+          volumes:
+             - /opt/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+          ports:
+            - "9090:9090"
+
+        node_exporter:
+          image: prom/node-exporter
+          container_name: node_exporter
+            ports:
+              - "9100:9100"
+        grafana:
+          image: grafana/grafana
+          container_name: grafana
+          ports:
+            - "3000:3000"
+          environment:
+            - GF_SECURITY_ADMIN_PASSWORD=1234
+
+ - name: Start services with Docker Compose
+  command: docker-compose -f /opt/docker-compose.yml up -d
