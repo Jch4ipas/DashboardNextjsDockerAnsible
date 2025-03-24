@@ -1,3 +1,5 @@
 all:
   hosts:
-    itsidevfsd0013:
+    dashboard:
+      ansible_host: 128.178.116.223
+      ansible_user: dashboard
