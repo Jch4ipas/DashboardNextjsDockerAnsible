@@ -1,4 +1,4 @@
-# ATARI Ops
+# Dashboard Ops
 
 This repositry regroups the configuration-as-code to provision, configure,
 deploy and manage the EPFL's Dashboard app. It uses [Ansible] wrapped in a
