@@ -1,5 +1,5 @@
-- name: Deploy WPBot on vm apprentis
+- name: Deploy Dashboard on Raspberry pi
   hosts: all
   gather_facts: no
   roles:
-    - role: roles/WPBot
+    - role: roles/Dashboard
