@@ -8,6 +8,11 @@ export default function NasaMedia() {
   console.log("L'api est : " + apiKey);
   const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 
+  if (!apiKey) {
+    console.error("API key is missing");
+    return <p>Erreur : clé API manquante</p>;
+  }
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -40,7 +45,7 @@ export default function NasaMedia() {
         ></iframe>
       ) : (
         <a href={mediaData.hdurl} target="_blank" rel="noopener noreferrer">
-          <img src={mediaData.url} alt={mediaData.title} width="700" />
+          <img src={mediaData.url} alt={mediaData.title} width="300" />
         </a>
       )}
     </div>
