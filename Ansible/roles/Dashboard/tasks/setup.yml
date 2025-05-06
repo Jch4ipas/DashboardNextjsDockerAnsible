@@ -82,6 +82,10 @@
             - ./env_file:/app/.env
   become: true
 
+- name: Stop dashboard
+  command: sudo docker stop dashboard
+
+
 - name: Start services with Docker Compose
   command: docker-compose -f /opt/docker-compose.yml up -d
   become: true
