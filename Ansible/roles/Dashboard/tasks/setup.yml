@@ -73,6 +73,13 @@
           environment:
             - "GF_SECURITY_ADMIN_PASSWORD=1234"
             - "GF_AUTH_ANONYMOUS_ENABLED=true"
+        dashboard:
+          image: jchaipas/dashboardtvfsd
+          container_name: dashboard
+          ports:
+            - 3000:3000
+          volumes:
+            - ./env_file:/app/.env
   become: true
 
 - name: Start services with Docker Compose
