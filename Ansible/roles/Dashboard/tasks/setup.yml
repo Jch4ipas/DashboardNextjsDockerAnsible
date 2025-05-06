@@ -95,4 +95,4 @@
   become: true
 
 - name: Ouvrir Grafana avec Chromium
-  command: chromium-browser "http://localhost:3000/d/rYdddlPWj/node-exporter-full?orgId=1&from=now-3h&to=now&timezone=browser&var-DS_PROMETHEUS=default&var-job=node_exporter&var-node=node_exporter:9100&var-diskdevices=%5Ba-z%5D%2B%7Cnvme%5B0-9%5D%2Bn%5B0-9%5D%2B&refresh=1m"
+  shell: nohup chromium-browser --kiosk "http://localhost:3000" > /dev/null 2>&1 &
