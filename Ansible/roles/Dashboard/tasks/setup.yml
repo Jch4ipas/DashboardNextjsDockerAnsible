@@ -69,7 +69,7 @@
           image: "grafana/grafana"
           container_name: grafana
           ports:
-            - "3000:3000"
+            - "3100:3000"
           environment:
             - "GF_SECURITY_ADMIN_PASSWORD=1234"
             - "GF_AUTH_ANONYMOUS_ENABLED=true"
