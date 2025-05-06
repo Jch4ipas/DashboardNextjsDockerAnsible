@@ -39,8 +39,8 @@ export default function NasaMedia() {
           title="NASA Video"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          width="800"
-          height="600"
+          width="550"
+          height="640"
           allowFullScreen
         ></iframe>
       ) : (
