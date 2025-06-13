@@ -78,18 +78,27 @@
           container_name: dashboard
           ports:
             - 3000:3000
-          volumes:
-            - ./env_file:/app/.env
   become: true
 
 - name: Stop dashboard
   command: sudo docker stop dashboard
+  ignore_errors: true
 
 
-- name: Start services with Docker Compose
-  command: docker-compose -f /opt/docker-compose.yml up -d
-  become: true
+- name: Start containers
+  shell: sudo docker-compose -f /opt/docker-compose.yml up -d
+  become: yes
 
+- name: Fermer Chromium (tous cas possibles)
+  shell: |
+    pkill -f chromium || true
+    pkill -f chromium-browser || true
+    pkill -f chrome || true
+  ignore_errors: true
+
+- name: Attendre que Chromium soit bien fermé
+  pause:
+    seconds: 3
 
 - name: Ouvrir Grafana avec Chromium
   shell: nohup chromium-browser --kiosk "http://localhost:3000" > /dev/null 2>&1 &
