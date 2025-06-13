@@ -1,10 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Button from "@/components/button";
-import UserStatisticsCard from "@/components/graphic";
-import PieChartComponent from "@/components/piechart";
-import RadialChartComponent from "@/components/radialchart";
 import NasaMedia from "@/services/infonasa"
 import Clock from "@/components/Clock";
 import LatestWordPressVersion from "@/services/wordpresslastversion";
