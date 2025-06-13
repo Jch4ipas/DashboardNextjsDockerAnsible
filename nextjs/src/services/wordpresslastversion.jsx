@@ -21,16 +21,14 @@ export default function LatestWordPressVersion() {
   }, []);
 
   return (
-    <div style={{
-      padding: '5rem',
-    }}>
-      <h2 style={{ fontSize: '1.50rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+    <div className="flex flex-col items-center justify-center text-xl font-bold p-20 min-h-screen">
+      <h2 className="text-xl font-bold mb-2">
         Wordpress Version :
       </h2>
       {version ? (
-        <p style={{ fontSize: '2rem' }}>{version}</p>
+        <p style={{ fontSize: '2rem', padding: '1rem' }}>{version}</p>
       ) : (
-        <p style={{ color: '#666' }}>Chargement…</p>
+        <p className="text-gray-500">Chargement…</p>
       )}
     </div>
   );
