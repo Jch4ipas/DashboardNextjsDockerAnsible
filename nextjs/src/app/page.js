@@ -8,6 +8,7 @@ import RadialChartComponent from "@/components/radialchart";
 import NasaMedia from "@/services/infonasa"
 import Clock from "@/components/Clock";
 import LatestWordPressVersion from "@/services/wordpresslastversion";
+import NextFreeze from "@/components/freeze";
 
 export default function Home() {
 
@@ -29,7 +30,7 @@ export default function Home() {
     { id: 5, width: 1, height: 1, content: <Clock></Clock> },
     { id: 6, width: 2, height: 2, content: <NasaMedia></NasaMedia> },
     { id: 2, width: 2, height: 2, content: <iframe src="https://support.epfl.ch/now/nav/ui/classic/params/target/epfl_status_panel.do"></iframe>  },
-    { id: 7, width: 2, height: 2, content: <iframe src="https://grafana.noc.fsd.team/playlists/play/1?kiosk"></iframe>},
+    { id: 7, width: 2, height: 2, content: <NextFreeze></NextFreeze>},
     { id: 8, width: 2, height: 1},
   ];
 
@@ -39,7 +40,7 @@ export default function Home() {
     { id: 3, width: 6, height: 3, content: <h1>WPN</h1>},
   ];
 
-  const allBoxSets = [boxes1, boxes2];
+  const allBoxSets = [boxes1];
   const currentBoxes = allBoxSets[activeBoxSet];
 
   return (
