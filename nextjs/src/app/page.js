@@ -24,14 +24,13 @@ export default function Home() {
 
 
   const boxes1 = [
-    { id: 1, width: 2, height: 2, content: <p className="flex text-xl font-bold items-center justify-center">Hello World</p>  },
-    { id: 3, width: 2, height: 2, content: <iframe src="http://localhost:3100/d/rYdddlPWj/node-exporter-full?orgId=1&from=now-3h&to=now&timezone=browser&var-DS_PROMETHEUS=default&var-job=node_exporter&var-node=node_exporter:9100&var-diskdevices=%5Ba-z%5D%2B%7Cnvme%5B0-9%5D%2Bn%5B0-9%5D%2B&refresh=1m" className="w-full h-full"></iframe>},
-    { id: 4, width: 1, height: 1, content: <LatestWordPressVersion></LatestWordPressVersion>},
-    { id: 5, width: 1, height: 1, content: <Clock></Clock> },
-    { id: 6, width: 2, height: 2, content: <NasaMedia></NasaMedia> },
+    { id: 1, width: 2, height: 4, content: <iframe src="https://actu.epfl.ch/" className="w-full h-full"></iframe>},
     { id: 2, width: 2, height: 2, content: <iframe src="https://support.epfl.ch/now/nav/ui/classic/params/target/epfl_status_panel.do"></iframe>  },
-    { id: 7, width: 2, height: 2, content: <NextFreeze></NextFreeze>},
-    { id: 8, width: 2, height: 1},
+    { id: 3, width: 1, height: 1, content: <LatestWordPressVersion></LatestWordPressVersion>},
+    { id: 4, width: 1, height: 1, content: <Clock></Clock> },
+    { id: 5, width: 2, height: 2, content: <NasaMedia></NasaMedia> },
+    { id: 6, width: 2, height: 2, content: <h1>Hello</h1>},
+    { id: 7, width: 2, height: 1, content: <NextFreeze></NextFreeze>},
   ];
 
   const boxes2 = [
