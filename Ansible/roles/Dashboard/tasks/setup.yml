@@ -2,6 +2,10 @@
   tags:
     - alway
 
+- name: Set timezone Europe/Zurich
+  command: sudo timedatectl set-timezone Europe/Zurich
+  become: true
+
 - name: Say hello
   debug:
     msg: "Hello there I'm working"
