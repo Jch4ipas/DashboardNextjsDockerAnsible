@@ -11,7 +11,7 @@
     msg: "Hello there I'm working"
   tags: sayHello
 
-- name: Télécharger Docker et Docker Compose
+- name: Download Docker and Docker Compose
   apt:
     name:
       - docker.io
@@ -26,13 +26,13 @@
     state: started
     enabled: yes
 
-- name: crée dossier de configuration de prometheus
+- name: Create configuration folder for prometheus
   file:
     path: /opt/prometheus
     state: directory
   become: true
 
-- name: crée le fichier de configuraiton pour prometheus
+- name: Create the configuration file for prometheus
   copy:
     dest: /opt/prometheus/prometheus.yml
     content: |
@@ -49,7 +49,7 @@
             - targets: ['node_exporter:9100']
   become: true
 
-- name: Création fichier docker compose
+- name: Create the docker compose file
   copy:
     dest: /opt/docker-compose.yml
     content: |
@@ -96,16 +96,16 @@
   shell: sudo docker-compose -f /opt/docker-compose.yml up -d
   become: yes
 
-- name: Fermer Chromium (tous cas possibles)
+- name: Close Chromium
   shell: |
     pkill -f chromium || true
     pkill -f chromium-browser || true
     pkill -f chrome || true
   ignore_errors: true
 
-- name: Attendre que Chromium soit bien fermé
+- name: Wait Chromium to be close
   pause:
     seconds: 3
 
-- name: Ouvrir Grafana avec Chromium
+- name: Open the dashboard with Chromium
   shell: nohup chromium-browser --kiosk "http://localhost:3000" > /dev/null 2>&1 &
