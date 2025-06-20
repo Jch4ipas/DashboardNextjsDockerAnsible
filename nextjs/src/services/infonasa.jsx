@@ -73,7 +73,7 @@ export default function NasaMedia() {
         ></iframe>
       ) : (
         <a href={mediaData.hdurl} target="_blank" rel="noopener noreferrer">
-          <img src={mediaData.url} alt={mediaData.title} width="800" />
+          <img src={mediaData.url} alt={mediaData.title} width="450" />
         </a>
       )}
     </div>
