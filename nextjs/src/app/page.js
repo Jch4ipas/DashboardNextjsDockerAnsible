@@ -50,7 +50,9 @@ export default function Home() {
               gridRow: `span ${box.height}`,
             }}
           >
-            {box.content}
+            <div className="w-full h-full flex items-center justify-center overflow-hidden rounded-2xl">
+              {box.content}
+            </div>
           </div>
         ))}
       </div>
