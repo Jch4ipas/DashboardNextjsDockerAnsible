@@ -32,6 +32,21 @@
     state: directory
   become: true
 
+- name: Create freezeDates.json file
+  copy:
+    dest: /opt/freezeDates.json
+    content: |
+      [
+        { "start": "2025-06-09", "end": "2025-06-09", "description": "Lundi de Pentecôte" },
+        { "start": "2025-06-13", "end": "2025-07-05", "description": "Gel d’examens d’été" },
+        { "start": "2025-08-01", "end": "2025-08-01", "description": "Fête nationale" },
+        { "start": "2025-09-05", "end": "2025-09-14", "description": "Gel de rentrée" },
+        { "start": "2025-09-22", "end": "2025-09-22", "description": "Lundi du Jeûne fédéral" },
+        { "start": "2025-12-18", "end": "2026-01-04", "description": "Gel de Noël / Nouvel An" },
+        { "start": "2026-01-09", "end": "2026-01-31", "description": "Gel d’examens d’hiver" }
+      ]
+  become: true
+
 - name: Create the configuration file for prometheus
   copy:
     dest: /opt/prometheus/prometheus.yml
@@ -80,6 +95,8 @@
         dashboard:
           image: jchaipas/dashboardtvfsd
           container_name: dashboard
+          volumes:
+             - "/opt/freezeDates.json:/app/public/freezeDates.json"
           ports:
             - 3000:3000
   become: true
