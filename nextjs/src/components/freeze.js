@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-function datediff(first, second) {        
+function datediff(first, second) {
   return Math.round((second - first) / (1000 * 60 * 60 * 24));
 }
 
@@ -16,19 +16,17 @@ function isInFreeze(today, period) {
   return now >= start && now <= end;
 }
 
-function getNextFreeze(today, freezes) {
+function getNextFreezes(today, freezes) {
   const now = normalize(today);
-  return (
-    freezes
-      .filter(period => normalize(new Date(period.start)) > now)
-      .sort((a, b) => new Date(a.start) - new Date(b.start))[0] || null
-  );
+  return freezes
+    .filter(period => normalize(new Date(period.start)) > now)
+    .sort((a, b) => new Date(a.start) - new Date(b.start));
 }
-
 
 export default function NextFreeze() {
   const [currentFreeze, setCurrentFreeze] = useState(null);
   const [nextFreeze, setNextFreeze] = useState(null);
+  const [nextNextFreeze, setNextNextFreeze] = useState(null);
   const [daysUntilNextFreeze, setDaysUntilNextFreeze] = useState(null);
 
   useEffect(() => {
@@ -38,9 +36,14 @@ export default function NextFreeze() {
       .then(res => res.json())
       .then(data => {
         const current = data.find(period => isInFreeze(today, period)) || null;
-        const next = getNextFreeze(today, data);
+        const upcomingFreezes = getNextFreezes(today, data); // fix ici
+
+        const next = upcomingFreezes[0] || null;
+        const nextNext = upcomingFreezes[1] || null;
+
         setCurrentFreeze(current);
         setNextFreeze(next);
+        setNextNextFreeze(nextNext);
 
         if (next) {
           const startDate = normalize(new Date(next.start));
@@ -52,20 +55,49 @@ export default function NextFreeze() {
       })
       .catch(err => console.error('Erreur chargement freezeDates.json:', err));
   }, []);
+
   return (
-    <div>
-      {currentFreeze ? (
+  <div>
+    {currentFreeze && (
+      <div>
         <p style={{ color: '#c3c3c3', fontSize: '2rem', fontWeight: 'bold' }}>
-          <strong style={{ color: '#FFFFFF' }}>En Freeze</strong><br></br>jusqu'au {new Date(currentFreeze.end).toLocaleDateString('fr-CH')}
+          <strong style={{ color: '#FFFFFF' }}>En Freeze</strong><br />
+          jusqu'au {new Date(currentFreeze.end).toLocaleDateString('fr-CH')}<br />
+          <strong style={{ color: '#FFFFFF' }}>{currentFreeze.description}</strong>
         </p>
-      ) : nextFreeze ? (
-        <p style={{ color: '#c3c3c3', fontSize: '2rem' }}>
-          Freeze dans <strong style={{ fontSize: '2.5rem', color: '#FFFFFF' }}>{daysUntilNextFreeze}</strong> jour
-          <br></br>du <strong>{new Date(nextFreeze.start).toLocaleDateString('fr-CH')}</strong> au <strong>{new Date(nextFreeze.end).toLocaleDateString('fr-CH')}</strong>
-        </p>
-      ) : (
-        <p>Aucun freeze prévu prochainement.</p>
-      )}
+      </div>
+    )}
+
+    {nextFreeze && (
+      <div>
+        {currentFreeze ? (
+          <p style={{ color: '#c3c3c3', fontSize: '1rem' }}>
+            Prochain freeze :<br />
+            du <strong>{new Date(nextFreeze.start).toLocaleDateString('fr-CH')}</strong> au <strong>{new Date(nextFreeze.end).toLocaleDateString('fr-CH')}</strong>
+          </p>
+        ) : (
+          <p style={{ color: '#c3c3c3', fontSize: '2rem' }}>
+            Prochain freeze dans <strong style={{ fontSize: '2.5rem', color: '#FFFFFF' }}>{daysUntilNextFreeze}</strong> jour{daysUntilNextFreeze > 1 ? 's' : ''}<br/>
+            du <strong>{new Date(nextFreeze.start).toLocaleDateString('fr-CH')}</strong> au <strong>{new Date(nextFreeze.end).toLocaleDateString('fr-CH')}</strong>
+          </p>
+        )}
+          <span style={{ color: '#c3c3c3'}}>{nextNextFreeze.description}</span>
     </div>
+    )}
+
+    {nextNextFreeze && (
+      <div style={{ color: '#c3c3c3' }}>
+        <p style={{ fontSize: '1rem' }}>
+          <strong style={{ color: '#FFFFFF' }}>et</strong><br />
+          du <strong>{new Date(nextNextFreeze.start).toLocaleDateString('fr-CH')}</strong> au <strong>{new Date(nextNextFreeze.end).toLocaleDateString('fr-CH')}</strong><br/>
+          <span>{nextNextFreeze.description}</span>
+        </p>
+      </div>
+    )}
+
+    {!currentFreeze && !nextFreeze && (
+      <p style={{ color: '#c3c3c3' }}>Aucun freeze prévu prochainement.</p>
+    )}
+  </div>
   );
 }
