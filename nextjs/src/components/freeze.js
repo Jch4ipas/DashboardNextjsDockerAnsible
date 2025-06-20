@@ -57,46 +57,93 @@ export default function NextFreeze() {
   }, []);
 
   return (
-  <div>
+  <div
+    style={{
+      display: 'flex',
+      flexDirection:
+        currentFreeze && (nextFreeze || nextNextFreeze) ? 'row' : 'column',
+      justifyContent:
+        currentFreeze && (nextFreeze || nextNextFreeze)
+          ? 'space-between'
+          : 'center',
+      alignItems:
+        currentFreeze && (nextFreeze || nextNextFreeze)
+          ? 'center'
+          : 'flex-start',
+      padding: '1rem',
+      gap: '2rem',
+      fontFamily: 'Arial, sans-serif',
+      color: '#c3c3c3',
+      textAlign: 'left',
+      minHeight: '200px',
+    }}
+  >
     {currentFreeze && (
-      <div>
-        <p style={{ color: '#c3c3c3', fontSize: '2rem', fontWeight: 'bold' }}>
-          <strong style={{ color: '#FFFFFF' }}>En Freeze</strong><br />
-          jusqu'au {new Date(currentFreeze.end).toLocaleDateString('fr-CH')}<br />
-          <strong style={{ color: '#FFFFFF' }}>{currentFreeze.description}</strong>
+      <div style={{ width: '100%', maxWidth: '500px' }}>
+        <p style={{ fontSize: '1.8rem', fontWeight: 'bold', margin: 0 }}>
+          <span style={{ color: '#FFFFFF' }}>En Freeze</span>
+        </p>
+        <p style={{ margin: '0.5rem 0', fontSize: '1.2rem' }}>
+          jusqu’au <strong>{new Date(currentFreeze.end).toLocaleDateString('fr-CH')}</strong>
+        </p>
+        <p style={{ color: '#FFFFFF', fontSize: '1rem', margin: 0 }}>
+          {currentFreeze.description}
         </p>
       </div>
     )}
 
-    {nextFreeze && (
-      <div>
-        {currentFreeze ? (
-          <p style={{ color: '#c3c3c3', fontSize: '1rem' }}>
-            Prochain freeze :<br />
-            du <strong>{new Date(nextFreeze.start).toLocaleDateString('fr-CH')}</strong> au <strong>{new Date(nextFreeze.end).toLocaleDateString('fr-CH')}</strong>
-          </p>
-        ) : (
-          <p style={{ color: '#c3c3c3', fontSize: '2rem' }}>
-            Prochain freeze dans <strong style={{ fontSize: '2.5rem', color: '#FFFFFF' }}>{daysUntilNextFreeze}</strong> jour{daysUntilNextFreeze > 1 ? 's' : ''}<br/>
-            du <strong>{new Date(nextFreeze.start).toLocaleDateString('fr-CH')}</strong> au <strong>{new Date(nextFreeze.end).toLocaleDateString('fr-CH')}</strong>
-          </p>
+    {(nextFreeze || nextNextFreeze) && (
+      <div style={{ width: '100%', maxWidth: '500px' }}>
+        {nextFreeze && (
+          <>
+            {currentFreeze ? (
+              <p style={{ fontSize: '1rem' }}>
+                Prochain freeze :<br />
+                <strong style={{ display: 'inline-block' , marginTop: "1.5rem" }}>{new Date(nextFreeze.start).toLocaleDateString('fr-CH')}</strong> au{' '}
+                <strong>{new Date(nextFreeze.end).toLocaleDateString('fr-CH')}</strong>
+              </p>
+            ) : (
+              <>
+                <p style={{ fontSize: '1.4rem', marginBottom: '2rem' }}>
+                  Prochain freeze dans{' '}
+                  <strong style={{ fontSize: '1.6rem', color: '#FFFFFF' }}>
+                    {daysUntilNextFreeze}
+                  </strong>{' '}
+                  jour{daysUntilNextFreeze > 1 ? 's' : ''}
+                </p>
+                <p style={{ fontSize: '1rem', margin: 0 }}>
+                  <strong>{new Date(nextFreeze.start).toLocaleDateString('fr-CH')}</strong> au{' '}
+                  <strong>{new Date(nextFreeze.end).toLocaleDateString('fr-CH')}</strong>
+                </p>
+              </>
+            )}
+            {nextFreeze.description && (
+              <p style={{fontStyle: 'italic', color: '#aaaaaa' }}>
+                {nextFreeze.description}
+              </p>
+            )}
+          </>
         )}
-          <span style={{ color: '#c3c3c3'}}>{nextNextFreeze.description}</span>
-    </div>
-    )}
 
-    {nextNextFreeze && (
-      <div style={{ color: '#c3c3c3' }}>
-        <p style={{ fontSize: '1rem' }}>
-          <strong style={{ color: '#FFFFFF' }}>et</strong><br />
-          du <strong>{new Date(nextNextFreeze.start).toLocaleDateString('fr-CH')}</strong> au <strong>{new Date(nextNextFreeze.end).toLocaleDateString('fr-CH')}</strong><br/>
-          <span>{nextNextFreeze.description}</span>
-        </p>
+        {nextNextFreeze && (
+          <div>
+            <p style={{ fontSize: '1rem', margin: 0 }}>
+              <span style={{ color: '#FFFFFF', fontWeight: 'bold' , marginBottom: '0.3rem', marginTop: '0.3rem', display: 'inline-block'  }}>
+                {nextFreeze ? 'Et' : 'Prochain freeze'}
+              </span><br />
+              <strong>{new Date(nextNextFreeze.start).toLocaleDateString('fr-CH')}</strong> au{' '}
+              <strong>{new Date(nextNextFreeze.end).toLocaleDateString('fr-CH')}</strong><br />
+              <span>{nextNextFreeze.description}</span>
+            </p>
+          </div>
+        )}
       </div>
     )}
 
-    {!currentFreeze && !nextFreeze && (
-      <p style={{ color: '#c3c3c3' }}>Aucun freeze prévu prochainement.</p>
+    {!currentFreeze && !nextFreeze && !nextNextFreeze && (
+      <p style={{ fontSize: '1rem', textAlign: 'center', width: '100%' }}>
+        Aucun freeze prévu prochainement.
+      </p>
     )}
   </div>
   );
