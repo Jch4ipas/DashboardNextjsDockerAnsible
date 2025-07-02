@@ -2,7 +2,7 @@ FROM --platform=linux/arm64 node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY nextjs/ ./
+COPY . ./
 
 RUN npm install && npm run build
 
