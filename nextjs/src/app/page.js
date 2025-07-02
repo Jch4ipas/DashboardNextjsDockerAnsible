@@ -5,6 +5,7 @@ import NasaMedia from "@/services/infonasa"
 import Clock from "@/components/Clock";
 import LatestWordPressVersion from "@/services/wordpresslastversion";
 import NextFreeze from "@/components/freeze";
+import Salleinfo from "@/services/Salleinfo"
 
 export default function Home() {
 
@@ -21,12 +22,15 @@ export default function Home() {
 
   const boxes1 = [
     { id: 1, width: 2, height: 4, content: <iframe src="https://actu.epfl.ch/" className="w-full h-full"></iframe>},
-    { id: 2, width: 2, height: 2, content: <iframe src="https://support.epfl.ch/now/nav/ui/classic/params/target/epfl_status_panel.do"></iframe>  },
+    { id: 2, width: 2, height: 2, content: <a></a>  },
     { id: 3, width: 1, height: 1, content: <LatestWordPressVersion></LatestWordPressVersion>},
     { id: 4, width: 1, height: 1, content: <Clock></Clock> },
     { id: 5, width: 2, height: 2, content: <NasaMedia></NasaMedia> },
-    { id: 6, width: 2, height: 2, content: <h1>Hello</h1>},
-    { id: 7, width: 2, height: 1, content: <NextFreeze></NextFreeze>},
+    { id: 6, width: 1, height: 1, content: <Salleinfo room={"INN011"}></Salleinfo>},
+    { id: 7, width: 1, height: 1, content: <Salleinfo room={"INN033"}></Salleinfo>},
+    { id: 8, width: 1, height: 1},
+    { id: 9, width: 1, height: 1, content: <Salleinfo room={"INN041"}></Salleinfo>},
+    { id: 10, width: 2, height: 1, content: <NextFreeze></NextFreeze>},
   ];
 
   const boxes2 = [
