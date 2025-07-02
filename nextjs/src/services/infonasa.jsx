@@ -4,16 +4,8 @@ import { useEffect, useState } from "react";
 
 export default function NasaMedia() {
   const [mediaData, setMediaData] = useState(null);
-  const apiKey = process.env.NEXT_PUBLIC_NASA_API_KEY;
-  console.log("L'api est : " + apiKey);
-  const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
   const CACHE_KEY = "nasa_apod_cache";
   const TTL = 1000 * 60 * 60 * 3; // 3heure
-
-  if (!apiKey) {
-    console.error("API key is missing");
-    return <p>Erreur : clé API manquante</p>;
-  }
 
   useEffect(() => {
     const cachedData = localStorage.getItem(CACHE_KEY);
@@ -32,7 +24,7 @@ export default function NasaMedia() {
 
     async function fetchData() {
       try {
-        const response = await fetch(apiUrl);
+        const response = await fetch("/api/apod");
         if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
@@ -52,11 +44,8 @@ export default function NasaMedia() {
     }
 
     fetchData();
-  }, [apiUrl]);
+  }, []);
 
-  if (!apiKey) {
-    return <p>Erreur : clé API manquante</p>;
-  }
   if (!mediaData) return <p>Chargement...</p>;
 
   return (
