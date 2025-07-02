@@ -1,0 +1,58 @@
+- name: Créer un fichier start-browser.sh
+  copy:
+    dest: /home/dashboard/start-browser.sh
+    content: |
+      #!/bin/bash
+      echo "Script lancé à $(date)" >> /home/dashboard/script.log
+      nohup chromium-browser --kiosk "http://localhost:3000" > /dev/null 2>&1 &
+    mode: '0755'
+
+- name: Créer un fichier docker-compose.sh
+  copy:
+    dest: /home/dashboard/docker-compose.sh
+    content: |
+      #!/bin/bash
+      sudo docker-compose -f /opt/docker-compose.yml up -d
+    mode: '0755'
+
+
+- name: Créer le dossier autostart s'il n'existe pas
+  file:
+    path: /home/dashboard/.config/autostart
+    state: directory
+    owner: dashboard
+    group: dashboard
+    mode: '0755'
+
+
+- name: Créer un fichier chromium-kiosk.desktop
+  copy:
+    dest: /home/dashboard/.config/autostart/chromium-kiosk.desktop
+    content: |
+      [Desktop Entry]
+      Type=Application
+      Exec=/home/dashboard/start-browser.sh
+      Hidden=false
+      NoDisplay=false
+      X-GNOME-Autostart-enabled=true
+      Name=Chromium Kiosk
+      Comment=Lancer Chromium au démarrage
+    owner: dashboard
+    group: dashboard
+    mode: '0644'
+
+- name: Créer un fichier dashboard.desktop
+  copy:
+    dest: /home/dashboard/.config/autostart/dashboard.desktop
+    content: |
+      [Desktop Entry]
+      Type=Application
+      Exec=/home/dashboard/docker-compose.sh
+      Hidden=false
+      NoDisplay=false
+      X-GNOME-Autostart-enabled=true
+      Name=Start docker
+      Comment=Start docker
+    owner: dashboard
+    group: dashboard
+    mode: '0644'

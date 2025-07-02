@@ -2,6 +2,9 @@
   tags:
     - alway
 
+- include_tasks:
+    file: autostart.yml
+
 - name: Set timezone Europe/Zurich
   command: sudo timedatectl set-timezone Europe/Zurich
   become: true
