@@ -51,7 +51,7 @@
     content: |
       [
         { "start": "2025-06-09", "end": "2025-06-09", "description": "Lundi de Pentecôte" },
-        { "start": "2025-06-13", "end": "2025-07-05", "description": "Gel d’examens d’été" },
+        { "start": "2025-06-13", "end": "2025-07-15", "description": "Gel d’examens d’été" },
         { "start": "2025-08-01", "end": "2025-08-01", "description": "Fête nationale" },
         { "start": "2025-09-05", "end": "2025-09-14", "description": "Gel de rentrée" },
         { "start": "2025-09-22", "end": "2025-09-22", "description": "Lundi du Jeûne fédéral" },
