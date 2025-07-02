@@ -1,1 +1,4 @@
-
+NASA_API_KEY : #Here Nasa Api Key
+AUTH_EWS_CREDENTIALS_USERNAME : #Here EWS creditentials username
+AUTH_EWS_CREDENTIALS_PASSWORD : #Here EWS creditentials password
+AUTH_EWS_SERVICE_ENDPOINT: #Here EWS service endpoint

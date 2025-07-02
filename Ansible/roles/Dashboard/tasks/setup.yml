@@ -35,6 +35,16 @@
     state: directory
   become: true
 
+- name: Create env file
+  copy:
+    dest: /opt/.env
+    content: |
+      NASA_API_KEY={{ NASA_API_KEY }}
+      AUTH_EWS_CREDENTIALS_USERNAME={{ AUTH_EWS_CREDENTIALS_USERNAME }}
+      AUTH_EWS_CREDENTIALS_PASSWORD={{ AUTH_EWS_CREDENTIALS_PASSWORD }}
+      AUTH_EWS_SERVICE_ENDPOINT={{ AUTH_EWS_SERVICE_ENDPOINT }}
+  become: true
+
 - name: Create freezeDates.json file
   copy:
     dest: /opt/freezeDates.json
@@ -100,6 +110,7 @@
           container_name: dashboard
           volumes:
              - "/opt/freezeDates.json:/app/public/freezeDates.json"
+             - "/opt/.env:/app/.env"
           ports:
             - 3000:3000
   become: true
