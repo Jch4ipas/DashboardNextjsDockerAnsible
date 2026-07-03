@@ -7,6 +7,7 @@ import GrafanaPanel from "@/components/widgets/GrafanaPanel";
 import EpflNews from "@/components/widgets/EpflNews";
 import EpflRestaurants from "@/components/widgets/EpflRestaurants/EpflRestaurants";
 import SwissWeather from "@/components/widgets/SwissWeather/SwissWeather";
+import TrainDisruptions from "@/components/widgets/TrainDisruptions";
 
 export const registry = {
   Clock,
@@ -18,6 +19,7 @@ export const registry = {
   EpflNews,
   EpflRestaurants,
   SwissWeather,
+  TrainDisruptions,
   "": () => <></>,
   iframe: (props) => <iframe {...props} />,
 };
