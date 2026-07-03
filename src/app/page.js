@@ -1,7 +1,7 @@
 "use client";
 
 import { loadData } from "@/services/loadJSON";
-import { buildBoxes } from "@/components/buildBoxe";
+import { buildBoxes } from "@/components/core/buildBoxes";
 import { useState, useEffect, useMemo } from "react";
 import "./globals.css";
 

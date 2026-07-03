@@ -1,4 +1,4 @@
-import { registry } from "@/components/registry";
+import { registry } from "@/components/core/registry";
 
 export function buildBoxes(serializedBoxes) {
   return serializedBoxes.map((box) => {

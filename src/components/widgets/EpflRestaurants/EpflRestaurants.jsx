@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import FoodTypeIcon from "@/components/FoodTypeIcon";
+import FoodTypeIcon from "./FoodTypeIcon";
 
 /**
  * EPFL restaurant menus widget for the dashboard.

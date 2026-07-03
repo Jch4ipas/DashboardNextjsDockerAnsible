@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import WeatherIcon, { weatherLabel } from "@/components/WeatherIcon";
+import WeatherIcon, { weatherLabel } from "./WeatherIcon";
 
 /**
  * Swiss weather widget for the dashboard.

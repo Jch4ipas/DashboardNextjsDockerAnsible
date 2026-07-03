@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { parseString } from "xml2js";
-import getOnPremEvents from "./getOnPremEvents";
 
 
 export default ({room}) => {

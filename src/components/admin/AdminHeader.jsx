@@ -19,7 +19,7 @@ import { getUserLocale } from "@/lib/locale";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import LanguageSelector from "./LanguageSelector";
-import SessionDropdown from "./sessionDropdown";
+import SessionDropdown from "./SessionDropdown";
 
 export default async function AdminHeader() {
   const [session, locale, t] = await Promise.all([

@@ -8,7 +8,7 @@
  */
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import AdminHeader from "@/components/AdminHeader";
+import AdminHeader from "@/components/admin/AdminHeader";
 
 export default async function AdminLayout({ children }) {
   // getMessages() reads the locale from getRequestConfig (cookie-based)

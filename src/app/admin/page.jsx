@@ -2,13 +2,13 @@
 
 import { saveData } from "@/services/saveJSON";
 import { loadData } from "@/services/loadJSON";
-import { buildBoxes } from "@/components/buildBoxe";
+import { buildBoxes } from "@/components/core/buildBoxes";
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { registry } from "@/components/registry";
-import Modal from "@/components/modal";
-import GrafanaPicker from "@/components/GrafanaPicker";
-import RestaurantSelect from "@/components/RestaurantSelect";
+import { registry } from "@/components/core/registry";
+import Modal from "@/components/ui/Modal";
+import GrafanaPicker from "@/components/admin/GrafanaPicker";
+import RestaurantSelect from "@/components/admin/RestaurantSelect";
 
 /** Shared EPFL input styling — flat field with a primary focus border. */
 const inputClass = "input input-bordered input-sm w-full focus:border-primary";
