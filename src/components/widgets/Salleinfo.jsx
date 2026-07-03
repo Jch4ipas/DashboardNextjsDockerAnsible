@@ -22,7 +22,7 @@ export default ({room}) => {
         }
         callAPI()
 
-        intervalID = setInterval(callAPI, 15 * 60 * 1000);
+        intervalID = setInterval(callAPI, 2 * 60 * 1000);
         return () => clearInterval(intervalID);
     }, [room])
     return (
