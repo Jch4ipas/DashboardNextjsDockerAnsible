@@ -12,7 +12,7 @@ import WeatherIcon, { weatherLabel } from "@/components/WeatherIcon";
  * dashboard and the white backoffice grid.
  *
  * Props (all optional, set from the admin "props" panel):
- *   - latitude / longitude: location            (default EPFL, Lausanne)
+ *   - latitude / longitude: location             (default 46.519 / 6.566 (EPFL))
  *   - label:  place name shown in the header     (default "EPFL – Lausanne")
  *   - model:  "ch1" | "ch2"                      (default "ch1")
  *   - lang:   "fr" | "en"                        (default "fr")
