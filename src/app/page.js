@@ -36,6 +36,25 @@ export default function Home() {
     return () => evt.close();
   }, []);
 
+  // Polling fallback for the kiosk (Raspberry Pi / FullPageOS): re-fetch the
+  // config on an interval so changes always show up, even if the SSE stream
+  // silently drops behind the proxy or never reaches this pod. loadData uses
+  // cache:"no-store", so this really hits the server. No visible flicker —
+  // unchanged config re-renders in place (iframes keep their identity).
+  useEffect(() => {
+    const id = setInterval(handleLoad, 60 * 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  // A kiosk browser never navigates on its own, so it keeps running the old
+  // bundle after a redeploy. Reload the whole page periodically to pick up new
+  // versions. Tune/remove this interval to taste (a reload briefly reloads the
+  // Grafana iframes).
+  useEffect(() => {
+    const id = setInterval(() => window.location.reload(),  45 * 60 * 1000);
+    return () => clearInterval(id);
+  }, []);
+
   // Displayable containers, with their boxes built once. Memoized so the
   // iframes keep their identity across renders — this is what prevents the
   // heavy Grafana dashboards from reloading (and keeps them pre-loaded).
