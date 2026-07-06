@@ -6,6 +6,7 @@ import { buildBoxes } from "@/components/core/buildBoxes";
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { registry } from "@/components/core/registry";
+import { extractWidgetProps } from "@/components/core/widgetProps";
 import Modal from "@/components/ui/Modal";
 import GrafanaPicker from "@/components/admin/GrafanaPicker";
 import RestaurantSelect from "@/components/admin/RestaurantSelect";
@@ -221,6 +222,13 @@ export default function BackOffice() {
         setSelectedBox(updatedBox);
         handleUpdateContainer(currentContainer.map(box => box.id === activeBox ? updatedBox : box));
         setShowDashboardPicker(false);
+    };
+
+    // Picking a widget type auto-creates every prop of that widget, filled with
+    // its default value (or left empty when the widget declares no default).
+    // Props are read straight from the component signature — nothing to maintain.
+    const handleSelectType = (type) => {
+        setSelectedBox({ ...selectedBox, type, props: extractWidgetProps(registry[type]) });
     };
 
     const handleSelectRestaurant = (list) => {
@@ -529,7 +537,7 @@ export default function BackOffice() {
                                         <select
                                             className="select select-bordered select-sm w-full focus:border-primary"
                                             value={selectedBox?.type || ""}
-                                            onChange={(e) => setSelectedBox({ ...selectedBox, type: e.target.value })}
+                                            onChange={(e) => handleSelectType(e.target.value)}
                                         >
                                             <option value="">{t("choose")}</option>
                                             {Object.keys(registry).map((key) => (
